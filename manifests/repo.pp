@@ -19,7 +19,9 @@
 #   The GPG keyring to get the public key from. Optional.
 # [*secring*]
 #   The GPG keyring to get the secret key from. Optional.
-#
+# [*periodic_update*]
+#   Add a cron job to update the repo periodically. Value in minutes, defaults
+#   to not updating
 define aptly::repo (
   $component = '',
   $distribution = '',
@@ -27,6 +29,7 @@ define aptly::repo (
   $publish = false,
   $keyring = '',
   $secring = '',
+  $periodic_update = undef,
 ){
   validate_string($component)
 
@@ -74,6 +77,13 @@ define aptly::repo (
         Class['aptly'],
         File[$keyring, $secring],
       ]
+    }
+
+    if $periodic_update and $periodic_update > 0 {
+      cron::job{"aptly_update_repo_${title}":
+        minute  => "*/${periodic_update}",
+        command => "${aptly_cmd} publish ${keyring_arg} ${secring_arg} update ${distribution} ${prefix} > /dev/null",
+      }
     }
   }
 
