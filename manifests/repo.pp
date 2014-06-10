@@ -9,6 +9,16 @@
 # [*component*]
 #   Specify which component to put the package in. This option will only works
 #   for aptly version >= 0.5.0.
+# [*distribution*]
+#   The distribution for publishing. Required when publishing.
+# [*prefix*]
+#   The prefix when publishing, defaults to '.'
+# [*publish*]
+#   Whether or not to publish the repo, defaults to false.
+# [*keyring*]
+#   The GPG keyring to get the public key from. Optional.
+# [*secring*]
+#   The GPG keyring to get the secret key from. Optional.
 #
 define aptly::repo (
   $component = '',
