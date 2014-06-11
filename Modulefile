@@ -9,3 +9,4 @@ project_page  'https://github.com/gds-operations/puppet-aptly'
 
 dependency 'puppetlabs/stdlib', '>= 3.0.0'
 dependency 'puppetlabs/apt', '>= 1.0.0'
+dependency 'torrancew/cron', '>= 0.1.0'
